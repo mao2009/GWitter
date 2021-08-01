@@ -151,7 +151,8 @@ class Gwitter {
     const method= "post";
     const endpoint = '/1.1/favorites/destroy.json';
     const url = `${url}${endpoint}`;
-    const payload = (id.test(/^\d*$/)) ? {user_id: id} : {screen_name: id};
+    const reg = /^\d*$/;
+    const payload = (reg.test(id)) ? {user_id: id} : {screen_name: id};
   
     return this.fetch(url, {
       method: method,
@@ -167,8 +168,9 @@ class Gwitter {
   follow(id, follow_=true) {
     const method= "post";
     const endpoint = '/1.1/friendships/create.json';
-    const url = `${url}${endpoint}`;
-    const payload = (id.test(/^\d*$/)) ? {user_id: id} : {screen_name: id};
+    const url = `${Gwitter.apiUrl}${endpoint}`;
+    const reg = /^\d*$/;
+    const payload = (reg.test(id)) ? {user_id: id} : {screen_name: id};
     payload["follow"] = follow_;
 
     return this.fetch(url, {
@@ -185,7 +187,8 @@ class Gwitter {
     const method= "post";
     const endpoint = '/1.1/friendships/destroy.json';
     const url = `${url}${endpoint}`;
-    const payload = (id.test(/^\d*$/)) ? {user_id: id} : {screen_name: id};
+    const reg = /^\d*$/;
+    const payload = (reg.test(id)) ? {user_id: id} : {screen_name: id};
   
     return this.fetch(url, {
       method: method,
