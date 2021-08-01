@@ -23,28 +23,6 @@ function authCallback(request) {
     return twitter.authCallback(request);
 }
 
-function updataName() {
-  const NAME = "loach"; 
-  const CAT = "ᓚᘏᗢ ";
-  const MEOW = "ﾆｬｰﾝ";
-  const SHEET_NAME = "猫";
-  const ROW = "2";
-  const COL = "1";
-
-  const MAX_COUNT = 5;
-
-  const count = getValue(SHEET_NAME, ROW, COL)
-  const payload = {name:`${NAME} ${CAT.repeat(count)}${MEOW}`}
-  twitter.updateProfile(payload);
-
-  if (count >= MAX_COUNT) {
-    setValue(SHEET_NAME, ROW, COL, 1);
-  } else {
-    setValue(SHEET_NAME, ROW, COL, count + 1);
-  }
-
-}
-
 function getValue(sheetName, row , column){
   const book = SpreadsheetApp.getActiveSpreadsheet()
   const sheet = book.getSheetByName(sheetName)
