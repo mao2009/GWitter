@@ -1,8 +1,9 @@
 const API_KEY = getProperty("API_KEY");
 const API_SECRET_KEY = getProperty("API_SECRET_KEY");
+const SERVICE_NAME = getProperty("SERVICE_NAME")
 
 // インスタンスの生成
-const twitter = new Gwitter(API_KEY, API_SECRET_KEY, "GwitterTest");
+const twitter = new Gwitter(API_KEY, API_SECRET_KEY, SERVICE_NAME);
 
 function test(){
   twitter.tweet("test");
@@ -15,12 +16,12 @@ function authorize() {
 
 // 認証を解除する
 function reset() {
-    twitter.reset();
+  twitter.reset();
 }
 
 // 認証後のコールバック
 function authCallback(request) {
-    return twitter.authCallback(request);
+  return twitter.authCallback(request);
 }
 
 function getValue(sheetName, row , column){
@@ -36,11 +37,12 @@ function setValue(sheetName, row , column, value){
   sheet.getRange(row,column).setValue(value);
 }
 
-
 function setKeys(){
   setProperty("API_KEY", "");
   setProperty("API_SECRET_KEY", "");
+  setProperty("SERVICE_NAME","");
 }
+
 function setProperty(key, value){
   PropertiesService.getScriptProperties().setProperty(key,value);
 }
