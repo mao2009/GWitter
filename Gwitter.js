@@ -236,9 +236,8 @@ class Gwitter {
     const query = (typeof data === "string") ? `?q=${Gwitter.encodeUrl(data)}` : Gwitter.getQuery(data);
     const url = `${Gwitter.apiUrl}${endpoint}${query}`;
     
-    const response = this.fetch(url, method);
-    const result = JSON.parse(response)
-    return result.statuses
+    const response = this.fetch(url, {method: method});
+    return response.statuses;
   }
 
   /**
@@ -293,7 +292,9 @@ class Gwitter {
     let query = "";
     if (!Gwitter.isEmpty(payload)) {
       query = "?" + Object.keys(payload).map(
-        key => {`${Gwitter.encodeUrl(key)}=${Gwitter.encodeUrl(payload[key])}`}
+        key => {
+          return `${Gwitter.encodeUrl(key)}=${Gwitter.encodeUrl(payload[key])}`
+        }
       ).join("&");
     }
     return query;
