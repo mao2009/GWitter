@@ -293,7 +293,7 @@ class Gwitter {
     let query = "";
     if (!Gwitter.isEmpty(payload)) {
       query = "?" + Object.keys(payload).map(
-        key => {`${Gwitter.encodeUrl(key)}=${Gwitter.encodeUrl(data[key])}`}
+        key => {`${Gwitter.encodeUrl(key)}=${Gwitter.encodeUrl(payload[key])}`}
       ).join("&");
     }
     return query;
