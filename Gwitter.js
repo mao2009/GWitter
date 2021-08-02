@@ -262,7 +262,7 @@ class Gwitter {
     const method = "get";
     const endpoint = "/1.1/friends/list.json";
     const url = `${Gwitter.apiUrl}${endpoint}`
-    return service.fetch(endPointUrl, {method: method});
+    return this.fetch(url, {method: method});
   }
 
   /**
