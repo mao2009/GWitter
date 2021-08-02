@@ -265,6 +265,13 @@ class Gwitter {
     return this.fetch(url, {method: method});
   }
 
+  followsList() {
+    const method = "get";
+    const endpoint = "/1.1/followers/list.json";
+    const url = `${Gwitter.apiUrl}${endpoint}`;
+    return this.fetch(url, {method: method});
+  }
+
   /**
    * @param
    * en
