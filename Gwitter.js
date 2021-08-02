@@ -251,8 +251,18 @@ class Gwitter {
     const method = "get";
     const endpoint ="/1.1/statuses/show.json"
     const url = `${Gwitter.apiUrl}${endpoint}?id=${id}`
-  this.fetch
     return this.fetch(url, {method:method});
+  }
+
+  /**
+   * 
+   * @return {object}
+   */
+  friendsList() {
+    const method = "get";
+    const endpoint = "/1.1/friends/list.json";
+    const url = `${Gwitter.apiUrl}${endpoint}`
+    return service.fetch(endPointUrl, {method: method});
   }
 
   /**
