@@ -265,6 +265,10 @@ class Gwitter {
     return this.fetch(url, {method: method});
   }
 
+  /**
+   * 
+   * @returns {object}
+   */
   followsList() {
     const method = "get";
     const endpoint = "/1.1/followers/list.json";
