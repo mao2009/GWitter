@@ -87,18 +87,24 @@ class Gwitter {
    * @param {string|object} data
    * @return {object}
    */
-  tweet(data) {
+  tweet(data, mediaUrls=[]) {
     const method = "post";
     const endpoint = (data.media) ? "/1.1/statuses/update_with_media" : "/1.1/statuses/update.json";
     const url = Gwitter.apiUrl + endpoint
     const params = Gwitter.getParams(data, method);
-
+    params.payload = {};
     if (typeof data === "string") {
-      params.payload = {status: data};
+      params.payload["status"] = data;
+    }
+    if (mediaUrls !== []){
+      if (typeof mediaUrls === "string"){
+        mediaUrls = [mediaUrls];
+      }
+      params.payload["media_ids"] = mediaUrls.map(mediaUrl => {return this.uploadMedia(mediaUrl)}).join(",")
     }
     return this.fetch(url, params);
   }
-
+  
   /**
    * @param {string} id id : tweet id
    * @retrune {object}
@@ -306,6 +312,22 @@ class Gwitter {
       Gwitter.logError(e);
     }
     return {};
+  }
+
+  /**
+   * 
+   * @param {string} mediaUrl 
+   * @returns {string}
+   */
+  uploadMedia(mediaUrl) {
+    const apiUrl = "https://upload.twitter.com/1.1/media/upload.json";
+    const regHttp = /^http/;
+    const file = (regHttp.test(mediaUrl)) ? UrlFetchApp.fetch(mediaUrl) : DriveApp.getFilesByName(mediaUrl).next();
+    const blob = file.getBlob()
+    const bs64Media = Utilities.base64Encode(blob.getBytes());
+    const data = {'method':"POST", 'payload':{'media_data':bs64Media}};
+    const mediaId = this.fetch(apiUrl, data).media_id_string
+    return mediaId;
   }
 
   /**
